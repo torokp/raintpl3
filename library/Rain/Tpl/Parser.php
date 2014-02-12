@@ -512,7 +512,11 @@ class Parser {
                     foreach (static::$registered_tags as $tags => $array) {
                         if (preg_match_all('/' . $array['parse'] . '/', $html, $matches)) {
                             $found = true;
-                            $parsedCode .= "<?php echo call_user_func( static::\$registered_tags['$tags']['function'], " . var_export($matches, 1) . " ); ?>";
+                            if($array['evalToCache']) {
+                                $parsedCode .= call_user_func( $array['function'], $matches, $array['params']);
+                            } else {
+                                $parsedCode .= "<?php echo call_user_func( static::\$registered_tags['$tags']['function'], " . var_export($matches, 1) . " ); ?>";
+                            }
                         }
                     }
 

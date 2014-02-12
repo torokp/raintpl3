@@ -191,8 +191,8 @@ class Tpl {
      * @param regexp $parse regular expression to parse the tag
      * @param anonymous function $function: action to do when the tag is parsed
      */
-    public static function registerTag($tag, $parse, $function) {
-        static::$registered_tags[$tag] = array("parse" => $parse, "function" => $function);
+    public static function registerTag($tag, $parse, $function, $evalToCache = false, $params = NULL) {
+        static::$registered_tags[$tag] = array("parse" => $parse, "function" => $function, "evalToCache" => $evalToCache, "params" => $params);
     }
 
     /**
